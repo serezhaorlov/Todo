@@ -1,0 +1,8 @@
+.todo__container_li {
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 10px;
+}
+.todo__container_li:first-of-type{
+    margin-top: 10px;
+}
