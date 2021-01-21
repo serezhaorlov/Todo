@@ -1,15 +1,19 @@
 import React from 'react';
 
-function TodoListItem ( { label, onDelete }) {
-    const [isDone, setIsDone] = React.useState(false);
-    const [isImportant, setIsImportant] = React.useState(false);
+function TodoListItem ( { label, onDelete, onToggleImportant, onToggleDone, stateDone, stateImportant }) {
+    const [isDone, setIsDone] = React.useState(stateDone); //state из App
+    const [isImportant, setIsImportant] = React.useState(stateImportant); //можно ли вообще так задавать начальный стейт стейтом из App? 
 
     const isCaseDone = () => {
+        onToggleDone();
         setIsDone(!isDone);
+        
     }
 
     const isCaseImportant = () => {
+        onToggleImportant();
         setIsImportant(!isImportant);
+
     }
 
     const style = { 
@@ -22,12 +26,12 @@ function TodoListItem ( { label, onDelete }) {
 
     return (
         <div className="todo__container todo__container_li ">
-            <span className={isDone? done: undone} style={style} onClick={ isCaseDone }>{ label }</span>
+            <span className={ isDone? done : undone } style={style} onClick={ isCaseDone }>{ label }</span>
             <div className="todo__container">
-                <button type="button" className="btn btn-outline-success btn-sm float-right todo__list-item-button" onClick={isCaseImportant}>
+                <button type="button" className="btn btn-outline-success btn-sm float-right todo__list-item-button" onClick={ isCaseImportant }>
                     <i className="fa fa-exclamation"/>
                 </button>
-                <button type="button" className="btn btn-outline-danger btn-sm float-right todo__list-item-button" onClick={onDelete}>
+                <button type="button" className="btn btn-outline-danger btn-sm float-right todo__list-item-button" onClick={ onDelete }>
                     <i className="fa fa-trash-o"/>
                 </button>
             </div>
@@ -38,37 +42,11 @@ function TodoListItem ( { label, onDelete }) {
 export default TodoListItem;
 
 
-//const items = ['Learn', 'Eat', 'Sleep', 'Repeat'];
-
-
-/* class TodoListItem extends React.Component {
-    constructor(props) {
-        super(props);
-        
+/*     let classNames = 'todo__list-item';
+    if (isDone) {
+      classNames += ' todo__list-item_done';
     }
 
-
-
-    render() {
-        const { label, important = false } = this.props;
-
-        const liStyle = { 
-            color: important ? 'steelblue' : 'black',
-            fontWeight: important ? 'bold' : 'normal'
-        }
-    
-        return (
-            <div className="todo__container todo__container_li">
-                <li style={liStyle} className="list-group-item todo__list-item" onClick={ this.onLabelClick }>{ label }</li>
-                <div className="todo__container">
-                    <button type="button" className="btn btn-outline-success btn-sm float-right todo__list-item-button">
-                        <i className="fa fa-exclamation"/>
-                    </button>
-                    <button type="button" className="btn btn-outline-danger btn-sm float-right todo__list-item-button">
-                        <i className="fa fa-trash-o"/>
-                    </button>
-                </div>
-            </div>
-        ) 
-    }
-} */
+    if (isImportant) {
+      classNames += ' important';
+    } */
