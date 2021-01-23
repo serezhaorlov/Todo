@@ -7,60 +7,37 @@ import StatusFilter from '../StatusFilter/StatusFilter';
 import ItemAddForm from '../ItemAddForm/ItemAddForm';
 
 
-let ID = 1;
 
 function App() {
+  let ID = 1;
 
-  const createItem = (label) => {
-    return {
-      label,
-      important: false, 
-      done: false, 
-      id: ID++
-    }
-  }
+  const [todosData, setTodosData] = React.useState([
+    { label: "Me, myself, and i", important: false, done: false, id: ID++ },
+    { label: "Keep calm and code", important: false, done: false, id: ID++ },
+    { label: "Fly bird, fly", important: false, done: false, id: ID++ }
+  ]);
 
-  const todoData = [
-    createItem("Me, myself, and i"),
-    createItem("Keep calm and code"),
-    createItem("Fly bird, fly")
-  ]
 
-  const toggleProperty = (arr, id, propName) => {
-    const index = arr.findIndex((el) => el.id === id);
-    const oldItem = arr[index];
-    const newItem = {...oldItem,
-      [propName]: !oldItem[propName]};
-      console.log(newItem)
+  const changeTodoItem = ( propValue, propName, id) => { //id 1
+    const index = todosData.findIndex((el) => el.id === id); //нахожу индекс карточки в todosData сравнивая id
+
+    const oldItem = todosData[index]; //выбираю эту карточку в переменную, выбирается карточка с id 1
+
+    console.log(oldItem.id) //дабл чек  id 1 
+
+    const newItem = { //меняю в старом итеме занчение boolen-ключа done/important в зависимости от того что было щелкнуто в TodoListItem и сохраняю в переменную
+      ...oldItem,
+      [propName]: propValue, 
+    };
+
+    console.log(newItem, newItem.id) //проверяю изменился ли параметр (изменился) id 1
 
     return [
-      ...arr.slice(0, index),
+      ...todosData.slice(0, index), //вставляю вместо старой карточки со старым значением done/important новую карточку, заменяя карточку по index'у 
       newItem,
-      ...arr.slice(index + 1)
-    ];
-  }
-
-  const [todosData, setTodosData] = React.useState(todoData);
-
-  const [stateDone, setStateDone] = React.useState(false); //управляющий стейт в App
-  const [stateImportant, setStateImportant] = React.useState(false);
-
-
-  const onToggleDone = (id) => {
-
-    setStateDone(!stateDone)
-
-    setTodosData(toggleProperty(todosData, id, 'done')) //на основе данных из todosData возвращаю новый массив с объектами c нужным значением done/important и устанавливаю в стейт
-    console.log("done", id)
-
-  }
-
-  const onToggleImportant = (id) => {
-
-    setStateImportant(!stateImportant)
-
-    setTodosData(toggleProperty(todosData, id, 'important'))
-    console.log('important', id)
+      ...todosData.slice(index + 1),
+      console.log(todosData) // но оно не заменяется) *feelsbadman*
+    ] ;
 
   }
 
@@ -81,11 +58,10 @@ function App() {
   
   const addTodo = (text) => {
 
-    const newTodo = createItem(text)
-    console.log(newTodo);
+    const newTodo = { label: text, important: false, done: false, id: ID++}
     const newArray = [ ...todosData, newTodo ];
 
-    setTodosData(newArray) //новый массив, чтобы не менять стейт
+    setTodosData(newArray) //
 
   }
 
@@ -102,8 +78,7 @@ function App() {
       </div>
       <TodoList 
         todoData={ todosData } onDelete={ deleteTodo } 
-        onToggleImportant={ onToggleImportant } onToggleDone={ onToggleDone }
-        stateDone={ stateDone } stateImportant={ stateImportant } /* стейты и функции управления стейтами */
+        changeTodoItem = {changeTodoItem}
       />
       <ItemAddForm onAdd={ addTodo } />
     </section>

@@ -2,19 +2,15 @@ import React from 'react';
 import TodoListItem from '../TodoListItem/TodoListItem'
 
 
-function TodoList ( { todoData, onDelete, onToggleImportant, onToggleDone, stateDone, stateImportant }) {
+function TodoList ( { todoData, onDelete, changeTodoItem}) {
     
     const elements = todoData.map((item) => {
 
-        const { id, ...itemProps } = item; //destructurisation, bitch
-
         return (
-            <li key={id} className="list-group-item todo__list-item">
-                <TodoListItem { ...itemProps } 
-                    onDelete = { () => onDelete(id) } 
-                    onToggleImportant = { () => onToggleImportant(id) }
-                    onToggleDone = { () => onToggleDone(id) }
-                    stateDone={ stateDone } stateImportant={ stateImportant }
+            <li key={item.id} className="list-group-item todo__list-item">
+                <TodoListItem item={ item }  /* прокидываю итем для того, чтобы взять lable, id, и состояния done/important для передачи в changeTodoItem*/
+                    onDelete = { () => onDelete(item.id) } 
+                    changeTodoItem = { changeTodoItem } /* прокидываю функцию в итем */
                 />
             </li>
         )
