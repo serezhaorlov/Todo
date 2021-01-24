@@ -4,7 +4,7 @@ import TodoListItem from '../TodoListItem/TodoListItem'
 
 function TodoList ( { todoData, onDelete, changeTodoItem}) {
     
-    const elements = todoData.map((item) => {
+    const elements = todoData.map((item) => { //раскладывается на новый массив замещая старый с новыми id
 
         return (
             <li key={item.id} className="list-group-item todo__list-item">

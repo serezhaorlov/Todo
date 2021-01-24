@@ -11,11 +11,24 @@ import ItemAddForm from '../ItemAddForm/ItemAddForm';
 function App() {
   let ID = 1;
 
-  const [todosData, setTodosData] = React.useState([
-    { label: "Me, myself, and i", important: false, done: false, id: ID++ },
+  const createItem = (label) => {
+    return {
+      label,
+      important: false, 
+      done: false, 
+      id: ID++
+    }
+  }
+  /*     { label: "Me, myself, and i", important: false, done: false, id: ID++ },
     { label: "Keep calm and code", important: false, done: false, id: ID++ },
-    { label: "Fly bird, fly", important: false, done: false, id: ID++ }
-  ]);
+    { label: "Fly bird, fly", important: false, done: false, id: ID++ } */
+
+  const [todosData, setTodosData] = React.useState([
+    createItem("Me, myself, and i"),
+    createItem("Keep calm and code"),
+    createItem("Fly bird, fly")
+
+  ]); //
 
 
   const changeTodoItem = ( propValue, propName, id) => { //id 1
@@ -32,20 +45,17 @@ function App() {
 
     console.log(newItem, newItem.id) //проверяю изменился ли параметр (изменился) id 1
 
-    return [
+    const newArray = [
       ...todosData.slice(0, index), //вставляю вместо старой карточки со старым значением done/important новую карточку, заменяя карточку по index'у 
       newItem,
-      ...todosData.slice(index + 1),
-      console.log(todosData) // но оно не заменяется) *feelsbadman*
-    ] ;
-
+      ...todosData.slice(index + 1), // но оно не заменяется) *feelsbadman*
+    ]
+  
+    setTodosData(newArray)
   }
 
   const deleteTodo = (id) => {
-      const index = todosData.findIndex((el)=>{
-        return el.id === id;
-      }
-    )
+      const index = todosData.findIndex((el)=> el.id === id);
 
     const newTodosData = [
       ...todosData.slice(0, index), //0 to index
@@ -57,8 +67,8 @@ function App() {
   }
   
   const addTodo = (text) => {
-
-    const newTodo = { label: text, important: false, done: false, id: ID++}
+    
+    const newTodo = createItem(text)
     const newArray = [ ...todosData, newTodo ];
 
     setTodosData(newArray) //

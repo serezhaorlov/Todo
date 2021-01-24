@@ -1,7 +1,7 @@
 import React from 'react';
 
 function TodoListItem ( { item, onDelete, changeTodoItem,  } ) {
-    console.log()
+    console.log(item)
     const {label, done, important, id} = item; //деструктурирую item для наглядности
     
     const isCaseDone = () => {
@@ -22,7 +22,7 @@ function TodoListItem ( { item, onDelete, changeTodoItem,  } ) {
 
     return (
         <div className="todo__container todo__container_li ">
-            <span className={ done? doned : undone } style={style} onClick={ isCaseDone }>{ label }</span>
+            <span className={ done ? doned : undone } style={style} onClick={ isCaseDone }>{ label }</span>
             <div className="todo__container">
                 <button type="button" className="btn btn-outline-success btn-sm float-right todo__list-item-button" onClick={ isCaseImportant }>
                     <i className="fa fa-exclamation"/>
