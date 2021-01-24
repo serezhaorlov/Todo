@@ -1,7 +1,6 @@
 import React from 'react';
 
 function TodoListItem ( { item, onDelete, changeTodoItem,  } ) {
-    console.log(item)
     const {label, done, important, id} = item; //деструктурирую item для наглядности
     
     const isCaseDone = () => {

@@ -6,11 +6,10 @@ import SearchInput from '../SearchInput/SearchInput';
 import StatusFilter from '../StatusFilter/StatusFilter';
 import ItemAddForm from '../ItemAddForm/ItemAddForm';
 
-
+let ID = 1;
 
 function App() {
-  let ID = 1;
-
+  
   const createItem = (label) => {
     return {
       label,
@@ -36,15 +35,15 @@ function App() {
 
     const oldItem = todosData[index]; //выбираю эту карточку в переменную, выбирается карточка с id 1
 
-    console.log(oldItem.id) //дабл чек  id 1 
-
+/*     console.log(oldItem.id) //дабл чек  id 1 
+ */
     const newItem = { //меняю в старом итеме занчение boolen-ключа done/important в зависимости от того что было щелкнуто в TodoListItem и сохраняю в переменную
       ...oldItem,
       [propName]: propValue, 
     };
 
-    console.log(newItem, newItem.id) //проверяю изменился ли параметр (изменился) id 1
-
+/*     console.log(newItem, newItem.id) //проверяю изменился ли параметр (изменился) id 1
+ */
     const newArray = [
       ...todosData.slice(0, index), //вставляю вместо старой карточки со старым значением done/important новую карточку, заменяя карточку по index'у 
       newItem,
