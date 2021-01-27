@@ -9,10 +9,13 @@ function ItemAddForm ({ onAdd }) {
     }
 
     const onSubmit = (e) => {
+        if (label.length === 0) {
+            e.preventDefault();
+            return console.log('Please enter something')
+        }
         e.preventDefault();
         onAdd(label);
         setLabel('');
-
     }
 
     return (
